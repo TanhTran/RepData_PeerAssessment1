@@ -79,7 +79,6 @@ na
 First,create a data frame for steps value from dataset "data"
 ```{r}
 newSteps<- data.frame(data$steps)
-newSteps
 ```
 Second, replace missing value with the mean value, using "tapply" function
 ```{r}
@@ -88,12 +87,10 @@ newSteps[is.na(newSteps),1]<- tapply(data$steps,list(data$interval),mean,na.rm=T
 3. Create a new dataset equal to the original one "data": by dding new column "newSteps" to dataset "data" with all missing values are replaced by mean values
 ```{r}
 newData<- cbind(newSteps,data[,2:3])
-head(newData)
 ```
 Then, change column names
 ```{r}
 colnames(newData)<- c("steps","date","interval")
-head(newData)
 ```
 Double check to make sure All missing values are replaced by mean values
 ```{r}
@@ -134,8 +131,6 @@ Combine this new column "daytype" to the dataset "newData"
 ```{r}
 finaldata<- cbind(daytype,newData)
 colnames(finaldata)<- c("daytype","steps","date","interval")
-head(finaldata)
-tail(finaldata)
 ```
 2. Make a time series plot of the 5-minute interval and average number of steps taken across all weekday days and weekend days
 ```{r}
@@ -143,3 +138,4 @@ finalsubset<- with(finaldata,aggregate(steps,list(daytype,interval),mean))
 colnames(finalsubset)<- c("daytype","interval","steps")
 library(lattice)
 finalplot<- with(finalsubset, xyplot(steps~interval|daytype,type="l"))
+finalplot
